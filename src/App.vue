@@ -1,28 +1,42 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <!-- HEADER -->
+    <app-header :quoteLength="quotes.length" :maxLength="maxQuote"></app-header>
+    <!-- QUOTES -->
+    <app-quotes :quotes="quotes" @quoteDelete="deleteQoute"></app-quotes>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-
+import HeaderVue from "./components/Header.vue";
+import QouteGridVue from './components/QouteGrid.vue';
 export default {
-  name: 'App',
+  name: "App",
+  data() {
+    return {
+      quotes: [],
+      maxQuote: 10,
+    };
+  },
   components: {
-    HelloWorld
+    "app-header": HeaderVue,
+    "app-quotes":QouteGridVue,
+  },
+  methods:{
+    deleteQoute(index){
+      this.quotes.splice(index,1);
+    }
   }
-}
+};
 </script>
 
-<style>
+<style lang="scss">
+@import "./styles/_varibales.scss";
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+  padding: 1rem 1.5rem;
+}
+body {
+  background-color: $back;
+  height: 100vh;
 }
 </style>
